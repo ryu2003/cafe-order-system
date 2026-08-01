@@ -1,8 +1,8 @@
 # ☕ Cafe Order & Inventory System（カフェ注文・リアルタイム在庫管理API）
 
 ## 📌 1. プロジェクト概要
-カフェのモバイル注文および店舗側のリアルタイム在庫管理を行うWebアプリケーションです。  
-店舗のモーニングラッシュ時における「同時注文による在庫不整合（マイナス在庫）」を解決する堅牢なバックエンドアーキテクチャを意識して設計しました。
+カフェのモバイル注文および店舗側のリアルタイム在庫管理を行うWebアプリケーションのバックエンドAPIです。  
+店舗のモーニングラッシュ時における「同時注文による在庫不整合（マイナス在庫）」を防ぐ排他制御機構を、Spring BootとPostgreSQLを用いて堅牢に設計しています。
 
 ---
 
@@ -21,7 +21,7 @@
 ## 🛠 3. 使用技術（Tech Stack）
 
 - **バックエンド:** Java 17 / Spring Boot 3.x / Spring Data JPA
-- **フロントエンド:** React (JavaScript / Vite) ※画面操作・非同期通信確認用
+- **フロントエンド:** React (JavaScript / Vite) ※画面操作確認用
 - **データベース:** PostgreSQL 15
 - **環境構築:** Docker / Docker Compose
 - **テスト:** JUnit 5 / Mockito
@@ -32,13 +32,10 @@
 ## 🔥 4. 技術的なこだわり・工夫したポイント
 
 ### ① 楽観的ロック（@Version）による排他制御
-複数ユーザーが「残り1個」の限定メニューを同時に購入リクエストした際、後から到達したリクエストに対して `OptimisticLockingFailureException` を発生させ、画面側に「現在混み合っています」と安全にレスポンスを返す設計にしました。
+複数ユーザーが「残り1個」の限定メニューを同時に購入リクエストした際、後から到達したリクエストに対して例外を発生させ、データ破壊を物理的に防止する設計にしています。
 
-### ② Stream API と Enum を活用したビジネスロジックのカプセル化
-会員ランクごとの割引計算ロジックや、時間帯ごとのセット価格計算を Enum 内にカプセル化し、Service層では Java Goldレベルの Stream API を用いて可読性の高い集計処理を実装しています。
-
-### ③ Docker Compose によるワンコマンド環境構築
-開発者がローカル環境で即座に動作確認できるよう、PostgreSQL データベースの起動・初期データ投入を `docker-compose up -d` 1発で完結させています。
+### ② Docker Compose によるワンコマンド環境構築
+開発者がローカル環境で即座に動作確認できるよう、PostgreSQL データベースの起動を `docker-compose up -d` 1発で完結させています。
 
 ---
 
@@ -56,7 +53,7 @@
 
 ## 🚀 6. ローカル環境での起動手順
 
-### 1. リポジトリのクローン
+### 1. リポジトリのクローンと移動
 ```bash
 git clone [https://github.com/your-username/cafe-order-system.git](https://github.com/your-username/cafe-order-system.git)
 cd cafe-order-system
