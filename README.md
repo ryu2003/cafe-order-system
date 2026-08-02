@@ -14,7 +14,7 @@
 
 ### システムでの解決策
 - **楽観的ロック（Optimistic Lock）の導入:** JPAの `@Version` アノテーションを活用し、DB更新時の競合を検知・防衛。
-- **データ整合性の担保:** トランザクション管理（`@Transactional`）を徹底し、注文失敗時は完全ロールバック。
+- **データ整合性の担保:** トランザクション管理（`@Transactional`）を徹底し、注文失敗時はロールバック。
 
 ---
 
@@ -31,11 +31,14 @@
 
 ## 🔥 4. 技術的なこだわり・工夫したポイント
 
-### ① 楽観的ロック（@Version）による排他制御
+### ① 三層アーキテクチャによる堅牢な責務分離
+Controller・Service・Repository の各レイヤーの責務を明確にし、コンストラクタインジェクション（`private final`）を活用して保守性とテスト容易性を高めたモダンな設計にしています。
+
+### ② 楽観的ロック（@Version）による排他制御
 複数ユーザーが「残り1個」の限定メニューを同時に購入リクエストした際、後から到達したリクエストに対して例外を発生させ、データ破壊を物理的に防止する設計にしています。
 
-### ② Docker Compose によるワンコマンド環境構築
-開発者がローカル環境で即座に動作確認できるよう、PostgreSQL データベースの起動を `docker-compose up -d` 1発で完結させています。
+### ③ Docker Compose によるワンコマンド環境構築
+開発者がローカル環境で即座に動作確認できるよう、PostgreSQL データベースの起動を `docker-compose up -d` 1回で完結させています。
 
 ---
 
@@ -54,6 +57,23 @@
 ## 🚀 6. ローカル環境での起動手順
 
 ### 1. リポジトリのクローンと移動
-```bash
-git clone [https://github.com/your-username/cafe-order-system.git](https://github.com/your-username/cafe-order-system.git)
+git clone [https://github.com/ryu2003/cafe-order-system.git](https://github.com/ryu2003/cafe-order-system.git)
 cd cafe-order-system
+
+### 2. データベース（PostgreSQL）の起動
+Dockerを使用してローカルにDBコンテナを立ち上げます。
+docker-compose up -d
+
+### 3. アプリケーションの起動
+Spring Bootを起動し、データベースとの接続およびテーブルの自動生成を行います。
+.\mvnw spring-boot:run
+
+### 4. 動作確認（APIのエンドポイント）
+ブラウザまたはAPIクライアントで以下のURLにアクセスし、商品一覧がJSON形式で返却されることを確認できます。
+- URL: http://localhost:8080/api/products
+
+[
+  {"price":450,"productId":1,"productName":"ブレンドコーヒー","stock":20,"version":0},
+  {"price":520,"productId":2,"productName":"カフェラテ","stock":15,"version":0},
+  {"price":780,"productId":3,"productName":"特製モーニングセット","stock":10,"version":0}
+]
