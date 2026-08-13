@@ -7,12 +7,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /*
 - order_details（注文詳細ID, 注文ID, 商品ID, 数量）
 */
 @Entity
 @Table(name = "order_details")
+@Getter
+@NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class OrderDetail {
 
     @Id
@@ -20,12 +27,12 @@ public class OrderDetail {
     private Long orderDetailId;  //注文詳細ID
 
     @ManyToOne
-    @JoinColumn(name = "orderId", nullable = false)
-    private Order orderId;    //注文ID
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;    //注文
 
     @ManyToOne
-    @JoinColumn(name = "productId", nullable = false)
-    private Product productId; //商品ID
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product; //商品
 
     private int quantity;   //数量
 }
