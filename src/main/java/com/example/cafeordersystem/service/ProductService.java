@@ -1,11 +1,11 @@
 package com.example.cafeordersystem.service;
 
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-import com.example.cafeordersystem.repository.ProductRepository;
+import org.springframework.stereotype.Service;
+
 import com.example.cafeordersystem.entity.Product;
+import com.example.cafeordersystem.repository.ProductRepository;
 
 @Service
 public class ProductService {
@@ -16,7 +16,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAllProduct() {
+    public List<Product> getAllProducts() {
         return this.productRepository.findAll();
     }
     
