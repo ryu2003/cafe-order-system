@@ -23,13 +23,13 @@ public class Product {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;  //商品ID
+    private Long productId;  // 商品ID
 
-    private String productName; //商品名
+    private String productName; // 商品名
 
-    private int price;  //価格
+    private int price;  // 価格
 
-    private int stock;  //在庫数
+    private int stock;  // 在庫数
 
     @Version
     private Long version;  // 排他制御用バージョン

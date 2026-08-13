@@ -28,12 +28,12 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;   //注文ID
+    private Long orderId;   // 注文ID
 
-    private LocalDateTime orderDateTime;    //注文日時
+    private LocalDateTime orderDateTime;    // 注文日時
 
-    private int totalAmount;    //合計金額
+    private int totalAmount;    // 合計金額
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;    //ステータス
+    private OrderStatus orderStatus;    // ステータス
 }

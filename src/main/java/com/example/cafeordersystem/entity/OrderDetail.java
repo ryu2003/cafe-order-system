@@ -24,15 +24,15 @@ public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderDetailId;  //注文詳細ID
+    private Long orderDetailId;  // 注文詳細ID
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;    //注文
+    private Order order;    // 注文
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product; //商品
+    private Product product; // 商品
 
-    private int quantity;   //数量
+    private int quantity;   // 数量
 }
