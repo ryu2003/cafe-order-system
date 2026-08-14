@@ -5,4 +5,4 @@ public record ProductResponse(
     String productName, // 商品名
     int price,  // 価格
     int stock   // 在庫数
-){}
+) {}
