@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,22 +23,27 @@ import com.example.cafeordersystem.repository.ProductRepository;
 
 @DisplayName("ProductServiceの単体テスト")
 @ExtendWith(MockitoExtension.class)
-public class TestProductService {
+public class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
 
     @InjectMocks
     private ProductService productService;
-    
+
+    @AfterEach
+    void tearDown() {
+        verifyNoMoreInteractions(productRepository);
+    }
+
     @Nested
     @DisplayName("getAllProductsメソッドの単体テスト")
     class GetAllProductsTests {
 
         @DisplayName("正常系/複数件取得")
         @Test
-        void testGetAllProducts() {
-            Product coffee = new Product(1L, "ブランドコーヒー", 450, 20, 0L);
+        void getAllProducts() {
+            Product coffee = new Product(1L, "ブレンドコーヒー", 450, 20, 0L);
             Product latte = new Product(2L, "カフェラテ", 520, 15, 0L);
             List<Product> expectedProducts = List.of(coffee, latte);
 
@@ -50,12 +57,11 @@ public class TestProductService {
                 .containsExactly(coffee, latte);
 
             verify(productRepository, times(1)).findAll();
-            verifyNoMoreInteractions(productRepository);
         }
 
         @DisplayName("正常系/0件取得")
         @Test
-        void testGetAllProductsWhenEmpty() {
+        void getAllProductsWhenEmpty() {
             when(productRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<Product> actualProducts = productService.getAllProducts();
@@ -65,7 +71,6 @@ public class TestProductService {
                 .isEmpty();
 
             verify(productRepository, times(1)).findAll();
-            verifyNoMoreInteractions(productRepository);
         }
     }
 }

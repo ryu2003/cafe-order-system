@@ -23,7 +23,7 @@ import com.example.cafeordersystem.controller.dto.OrderRequest;
 
 
 @DisplayName("GlobalExceptionHandlerの単体テスト")
-public class TestGlobalExceptionHandler {
+public class GlobalExceptionHandlerTest {
     
     private MockMvc mockMvc;
 
@@ -80,7 +80,7 @@ public class TestGlobalExceptionHandler {
 
         @DisplayName("「400 Bad Request」が返されること")
         @Test
-        void testHandleMethodArgumentNotValidException() throws Exception{
+        void handleMethodArgumentNotValidException() throws Exception{
             mockMvc.perform(post("/test/not-valid")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"productId\": null, \"quantity\": 0}"))
@@ -94,7 +94,7 @@ public class TestGlobalExceptionHandler {
 
         @DisplayName("productIdのみエラーをキャッチできること")
         @Test
-        void testHandleProductIdOnly() throws Exception{
+        void handleProductIdOnly() throws Exception{
             mockMvc.perform(post("/test/not-valid")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"productId\": null, \"quantity\": 1}"))
@@ -113,7 +113,7 @@ public class TestGlobalExceptionHandler {
 
         @DisplayName("「409 Conflict」が返されること")
         @Test
-        void testHandleOptimisticLockingFailureException() throws Exception {
+        void handleOptimisticLockingFailureException() throws Exception {
             mockMvc.perform(get("/test/optimistic-lock"))
                     .andExpect(status().isConflict())
                     .andExpect(jsonPath("$.status").value("409 CONFLICT"))
@@ -128,8 +128,8 @@ public class TestGlobalExceptionHandler {
 
         @DisplayName("「500 Internal Server Error」が返されること")
         @Test
-        void testHandleException() throws Exception {
-            mockMvc.perform(get("/test/optimistick-lock"))
+        void handleException() throws Exception {
+            mockMvc.perform(get("/test/runtime-exception"))
                     .andExpect(status().isInternalServerError())
                     .andExpect(jsonPath("$.status").value("500 INTERNAL_SERVER_ERROR"))
                     .andExpect(jsonPath("$.message").value("予期せぬエラーが発生しました"))
