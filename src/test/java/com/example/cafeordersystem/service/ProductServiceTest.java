@@ -1,10 +1,8 @@
 package com.example.cafeordersystem.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -62,7 +60,7 @@ public class ProductServiceTest {
         @DisplayName("正常系/0件取得")
         @Test
         void getAllProductsWhenEmpty() {
-            when(productRepository.findAll()).thenReturn(Collections.emptyList());
+            when(productRepository.findAll()).thenReturn(List.of());
 
             List<Product> actualProducts = productService.getAllProducts();
 
