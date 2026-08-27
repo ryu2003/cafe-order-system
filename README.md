@@ -53,10 +53,10 @@
 ### 現在のテスト実装ステータス
 * **例外ハンドリング層（GlobalExceptionHandler）**: 実装完了
   * MockMvcを用いたスタンドアロンテストにより、全例外パターン（IllegalArgumentException, MethodArgumentNotValidException, OptimisticLockingFailureException, Exception）に対して適切なHTTPステータスとエラーJSONが返却されることを検証済み。
-* **サービス層（ProductService）**: 順次実装中  
-  * Mockitoを用いたモック検証により、商品一覧取得の正常系（複数件取得、0件取得）における振る舞いを検証予定
-* **サービス層（OrderService）**: 順次実装中
-  * 注文処理のビジネスロジック、在庫不足時の例外スロー、排他制御競合時の例外発生などを検証予定。
+* **サービス層（ProductService）**: 実装完了
+  * Mockitoを用いたモック検証により、商品一覧取得の正常系（複数件取得、0件取得）における振る舞いおよびリポジトリの呼出回数を検証済み。
+* **サービス層（OrderService）**: 実装完了
+  * 注文処理の正常系（合計金額計算、ステータス設定、在庫減算）、在庫不足時の例外スロー、および楽観的ロック競合時の例外スローを検証済み。
 * **コントローラー層**: 順次実装中
 
 ---
