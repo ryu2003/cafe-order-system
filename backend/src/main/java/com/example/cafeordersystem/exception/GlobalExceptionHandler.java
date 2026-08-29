@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleOptimisticLockingFailureException(OptimisticLockingFailureException e) {
         ApiErrorResponse error = new ApiErrorResponse(
             HttpStatus.CONFLICT,
-            e.getMessage(),
+            "他のユーザーによってデータが更新されました。最新の在庫をご確認の上、再度お試しください。",
             LocalDateTime.now()
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);

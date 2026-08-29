@@ -117,7 +117,7 @@ public class GlobalExceptionHandlerTest {
             mockMvc.perform(get("/test/optimistic-lock"))
                     .andExpect(status().isConflict())
                     .andExpect(jsonPath("$.status").value("409 CONFLICT"))
-                    .andExpect(jsonPath("$.message").value("もう一度やり直してください"))
+                    .andExpect(jsonPath("$.message").value("他のユーザーによってデータが更新されました。最新の在庫をご確認の上、再度お試しください。"))
                     .andExpect(jsonPath("$.timeStamp").exists());
         }
     }
