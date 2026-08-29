@@ -1,0 +1,80 @@
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 16px 20px;
+  background-color: #1a1a1a;
+  gap: 16px;
+}
+
+.product-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  width: 180px;
+  text-align: left;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 2. 価格（幅固定で右揃え） */
+.product-price {
+  margin: 0;
+  width: 70px;
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.product-stock {
+  margin: 0;
+  width: 90px;
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  gap: 6px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.quantity-control button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.quantity-value {
+  width: 24px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.order-btn {
+  width: 120px;
+  height: 38px;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+}
