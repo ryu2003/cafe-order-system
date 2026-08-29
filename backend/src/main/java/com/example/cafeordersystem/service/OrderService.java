@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
+import com.example.cafeordersystem.controller.dto.OrderResponse;
 import com.example.cafeordersystem.entity.Order;
 import com.example.cafeordersystem.entity.OrderDetail;
 import com.example.cafeordersystem.entity.Product;
@@ -32,7 +33,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order createOrder(Long productId, int quantity) {
+    public OrderResponse createOrder(Long productId, int quantity) {
         // 商品情報の取得
         Product product = productRepository.findById(productId)
                             .orElseThrow(() -> new IllegalArgumentException("指定された商品が存在しません: " + productId));
@@ -44,13 +45,13 @@ public class OrderService {
         // 注文テーブルの行作成
         int totalAmount = product.getPrice() * quantity;
         Order order = new Order(null, LocalDateTime.now(), totalAmount, OrderStatus.PREPARING);
-        Order saveOrder = orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
 
         // 注文詳細テーブルの行作成
-        OrderDetail orderDetail = new OrderDetail(null, saveOrder, saveProduct, quantity);
+        OrderDetail orderDetail = new OrderDetail(null, savedOrder, saveProduct, quantity);
         orderDetailRepository.save(orderDetail);
 
-        return saveOrder;
+        return OrderResponse.from(savedOrder);
     }
     
 }

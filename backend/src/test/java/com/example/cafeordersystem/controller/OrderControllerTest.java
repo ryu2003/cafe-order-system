@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.cafeordersystem.controller.dto.OrderRequest;
 import com.example.cafeordersystem.controller.dto.OrderResponse;
-import com.example.cafeordersystem.entity.Order;
 import com.example.cafeordersystem.enums.OrderStatus;
 import com.example.cafeordersystem.service.OrderService;
 
@@ -54,7 +53,7 @@ public class OrderControllerTest {
             OrderRequest orderRequest = new OrderRequest(1L, 2);
 
             LocalDateTime dateTime = LocalDateTime.now();
-            Order saveOrder = new Order(1L, dateTime, 900, OrderStatus.PREPARING);
+            OrderResponse saveOrder = new OrderResponse(1L, dateTime, 900, OrderStatus.PREPARING);
             when(orderService.createOrder(1L, 2)).thenReturn(saveOrder);
 
             OrderResponse orderResponse = new OrderResponse(1L, dateTime, 900, OrderStatus.PREPARING);

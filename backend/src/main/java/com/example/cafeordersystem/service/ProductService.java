@@ -2,9 +2,10 @@ package com.example.cafeordersystem.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.cafeordersystem.entity.Product;
+import com.example.cafeordersystem.controller.dto.ProductResponse;
 import com.example.cafeordersystem.repository.ProductRepository;
 
 @Service
@@ -16,8 +17,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAllProducts() {
-        return this.productRepository.findAll();
+    public List<ProductResponse> getAllProducts() {
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC, "productId"))
+                .stream()
+                .map(ProductResponse::from)
+                .toList();
     }
     
 }

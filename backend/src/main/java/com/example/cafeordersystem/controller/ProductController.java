@@ -22,14 +22,6 @@ public class ProductController {
     
     @GetMapping
     public List<ProductResponse> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
-
-        return products.stream()
-                    .map(p -> new ProductResponse(
-                        p.getProductId(),
-                        p.getProductName(),
-                        p.getPrice(),
-                        p.getStock()
-                    )).toList();
+        return productService.getAllProducts();
     }
 }

@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.OptimisticLockingFailureException;
 
+import com.example.cafeordersystem.controller.dto.OrderResponse;
 import com.example.cafeordersystem.entity.Order;
 import com.example.cafeordersystem.entity.OrderDetail;
 import com.example.cafeordersystem.entity.Product;
@@ -76,7 +77,7 @@ public class OrderServiceTest {
             when(orderRepository.save(any(Order.class))).thenAnswer(returnsFirstArg());
             when(orderDetailRepository.save(any(OrderDetail.class))).thenAnswer(returnsFirstArg());
 
-            Order expectedOrder = orderService.createOrder(1L, 2);
+            OrderResponse expectedOrder = orderService.createOrder(1L, 2);
 
             assertThat(expectedOrder)
                 .isNotNull()

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cafeordersystem.controller.dto.OrderRequest;
 import com.example.cafeordersystem.controller.dto.OrderResponse;
-import com.example.cafeordersystem.entity.Order;
 import com.example.cafeordersystem.service.OrderService;
 
 @RestController
@@ -23,12 +22,6 @@ public class OrderController {
 
     @PostMapping
     public OrderResponse creatOrder(@RequestBody @Validated OrderRequest request) {
-        Order saveOrder = orderService.createOrder(request.productId(), request.quantity());
-
-        return new OrderResponse(
-            saveOrder.getOrderId(),
-            saveOrder.getOrderDateTime(),
-            saveOrder.getTotalAmount(),
-            saveOrder.getOrderStatus());
+        return orderService.createOrder(request.productId(), request.quantity());
     }
 }
